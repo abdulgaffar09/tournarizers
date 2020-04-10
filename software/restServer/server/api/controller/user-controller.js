@@ -4,6 +4,7 @@ import errorResponse from '../utils/error-response';
 class UserController{
     static getAllUsers(req,res){
             const mongoClient = req.app.get('mongoClient');
+            console.log('request received at getAllUsers: ');
             return UserService.getAllUsers(mongoClient).then(result => {
                 res.status(200).json(new successResponse(result));
             }).catch(err => {

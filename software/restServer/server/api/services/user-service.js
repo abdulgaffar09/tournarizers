@@ -44,7 +44,7 @@ class UserService{
             MongoManager.findOneDocument(mongoClient,constants.tournarizersDbName,constants.userProfileCollection,query)
             .then(userProfile => {
                 console.log('userProfile found: ',userProfile);
-                resolve(userProfiles);
+                resolve(userProfile);
             }).catch(err => {
                 console.log('Error occured while getUser: ',err);
                 reject(err);
