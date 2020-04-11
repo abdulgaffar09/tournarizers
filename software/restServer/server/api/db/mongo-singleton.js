@@ -5,5 +5,6 @@ var mongoClient = function mongoClient(){
     .MongoClient("mongodb+srv://gamer:wFychmhZTy0P5bN4@mongotour-8gfmt.mongodb.net/tournarizer_dev?retryWrites=true&w=majority", 
     { useNewUrlParser: true });    
 }
+
 export default mongoClient;
 

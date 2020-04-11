@@ -16,7 +16,7 @@ class UserController{
     static createUser(req,res){
         const mongoClient = req.app.get('mongoClient');
         console.log('mongoClient: ',mongoClient);
-        const payload = req.body;
+        let payload = req.body;
         return UserService.createUser(mongoClient,payload).then(result => {
             res.status(200).json(new successResponse(result));
         }).catch(err => {

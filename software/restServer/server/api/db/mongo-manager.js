@@ -36,13 +36,12 @@ class MongoManager {
         });
     }
 
-    static findOneDocument(mongoClient, dbName, collectionName, query) {
+    static findOneDocument(mongoClient, dbName, collectionName, query,options) {
         return new Promise((resolve, reject) => {
             try {
                 this.getMongoClient(mongoClient).then(mongoCli => {
                     const collection = mongoCli.db(dbName).collection(collectionName);
-                    let result = collection.find(query).project({ _id: 0 });
-                    result.toArray((err, docs) => {
+                    collection.findOne(query,options,(err, docs) => {
                         if (err) {
                             console.log('Exception while findOneDocument: ', err);
                             reject(err);
