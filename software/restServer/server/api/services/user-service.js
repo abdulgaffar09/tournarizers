@@ -2,6 +2,7 @@
 // import Promise from 'promise';
 import constants from '../utils/application-constants';
 import MongoManager from '../db/mongo-manager';
+import CommonUtils from '../utils/common-utils';
 import bcrypt from 'bcrypt';
 const saltRounds = 10;
 
@@ -10,7 +11,7 @@ class UserService{
     static getAllUsers(mongoClient){
         return new Promise((resolve,reject) => {
             let query = {};
-            MongoManager.findAllDocuments(mongoClient,constants.tournarizersDbName,constants.userProfileCollection,query)
+            MongoManager.findAllDocuments(mongoClient,constants.TOURNARIZERS_DB,constants.USER_PROFILES_COLLECTION,query)
             .then(userProfiles => {
                 console.log('no of userProfiles found are: ',userProfiles.length);
                 resolve(userProfiles);
@@ -29,15 +30,17 @@ class UserService{
                 return;
             }
             let query = {email:payload.profile.emailId};   
-            let password = payload.profile.password;         
-            bcrypt.hash(password, saltRounds).then((hashPassword) => {
+            CommonUtils.getLatestIdByType(constants.TYPE_USER,mongoClient).then(userId => {
+                payload.profile.userId = userId.lastUpdated;
+                console.log('profile userId -> ',payload.profile);
+                let password = payload.profile.password; 
+                return bcrypt.hash(password, saltRounds);        
+            }).then((hashPassword) =>{
                 payload.profile.password = hashPassword;
+                console.log('profile hashPassword -> ',payload.profile);
                 let setDoc = {'$set':payload.profile};
-                return MongoManager.findOneAndUpdate(mongoClient,constants.tournarizersDbName,
-                    constants.userProfileCollection,query,setDoc,true);
-            }).catch(err => {
-                console.log(err)
-                return reject(err);
+                return MongoManager.findOneAndUpdate(mongoClient,constants.TOURNARIZERS_DB,
+                    constants.USER_PROFILES_COLLECTION,query,setDoc,true);
             }).then(userCreated => {
                 console.log('user profile created: ',userCreated);
                 resolve(userCreated);
@@ -45,6 +48,7 @@ class UserService{
                 console.log('Error occured while createUser: ',err);
                 reject(err);
             });
+            
         });
     }
 
@@ -52,14 +56,14 @@ class UserService{
         return new Promise((resolve,reject) => {
             let query = {userId:id};
             let options = {projection:{'_id': 0,  'password':0 }};
-            MongoManager.findOneDocument(mongoClient,constants.tournarizersDbName,constants.userProfileCollection,query,options)
+            MongoManager.findOneDocument(mongoClient,constants.TOURNARIZERS_DB,constants.USER_PROFILES_COLLECTION,query,options)
             .then(userProfile => {
                 console.log('userProfile found: ',userProfile);
                 resolve(userProfile);
             }).catch(err => {
                 console.log('Error occured while getUser: ',err);
                 reject(err);
-            });``
+            });
 
         });
     }
@@ -72,7 +76,7 @@ class UserService{
             }
             let query = {email:payload.profile.emailId};
             let setDoc = {'$set':payload.profile};
-            MongoManager.findOneAndUpdate(mongoClient,constants.tournarizersDbName,constants.userProfileCollection,query,setDoc,true)
+            MongoManager.findOneAndUpdate(mongoClient,constants.TOURNARIZERS_DB,constants.USER_PROFILES_COLLECTION,query,setDoc,true)
             .then(userCreated => {
                 console.log('user profile updated: ',userCreated);
                 resolve(userCreated);

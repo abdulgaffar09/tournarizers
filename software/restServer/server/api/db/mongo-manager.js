@@ -62,7 +62,7 @@ class MongoManager {
 
                 this.getMongoClient(mongoClient).then(mongoCli => {
                     const collection = mongoCli.db(dbName).collection(collectionName);
-                    collection.findOneAndUpdate(query, setDoc, { returnOriginal: true, upsert: isUpsert }, (err, result) => {
+                    collection.findOneAndUpdate(query, setDoc, { returnOriginal: false, upsert: isUpsert }, (err, result) => {
                         if (err) {
                             console.log('Error while findOneAndUpdate: ', err);
                             reject(err);

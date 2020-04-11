@@ -14,4 +14,5 @@ router.get('/:id/get', UserController.getUser);
 router.post('/create', UserController.createUser);
 router.post('/update', UserController.updateUser);
 
+
 export default router;

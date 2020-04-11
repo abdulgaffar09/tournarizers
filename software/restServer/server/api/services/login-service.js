@@ -13,7 +13,7 @@ class LoginService{
             let query = {emailId:payload.emailId};
             let profile = {};
             let options = {};
-            MongoManager.findOneDocument(mongoClient,constants.tournarizersDbName,constants.userProfileCollection,query,options)
+            MongoManager.findOneDocument(mongoClient,constants.TOURNARIZERS_DB,constants.USER_PROFILES_COLLECTION,query,options)
             .then(userProfile => {
                 if(userProfile && userProfile.password){
                     profile = userProfile;
