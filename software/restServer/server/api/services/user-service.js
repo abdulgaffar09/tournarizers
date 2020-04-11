@@ -31,7 +31,7 @@ class UserService{
             }
             let query = {email:payload.profile.emailId};   
             CommonUtils.getLatestIdByType(constants.TYPE_USER,mongoClient).then(userId => {
-                payload.profile.userId = userId.lastUpdated;
+                payload.profile.userId = userId.lastUpdated+"";
                 console.log('profile userId -> ',payload.profile);
                 let password = payload.profile.password; 
                 return bcrypt.hash(password, saltRounds);        
