@@ -29,26 +29,41 @@ class UserService{
                 reject(new Error("required params not found."));
                 return;
             }
-            let query = {email:payload.profile.emailId};   
-            CommonUtils.getLatestIdByType(constants.TYPE_USER,mongoClient).then(userId => {
-                payload.profile.userId = userId.lastUpdated+"";
-                console.log('profile userId -> ',payload.profile);
-                let password = payload.profile.password; 
-                return bcrypt.hash(password, saltRounds);        
-            }).then((hashPassword) =>{
-                payload.profile.password = hashPassword;
-                console.log('profile hashPassword -> ',payload.profile);
-                let setDoc = {'$set':payload.profile};
-                return MongoManager.findOneAndUpdate(mongoClient,constants.TOURNARIZERS_DB,
-                    constants.USER_PROFILES_COLLECTION,query,setDoc,true);
-            }).then(userCreated => {
-                console.log('user profile created: ',userCreated);
-                resolve(userCreated);
+            let query = {emailId:payload.profile.emailId};   
+            MongoManager.findOneDocument(mongoClient,constants.TOURNARIZERS_DB,constants.USER_PROFILES_COLLECTION,query)
+            .then((result) => {
+                console.log('user already exists',result);
+                if(result && result.emailId && result.emailId == payload.profile.emailId){
+                    return reject("user already exists.");
+                }else{
+                     CommonUtils.getLatestIdByType(constants.TYPE_USER,mongoClient).then(userId => {
+                        payload.profile.userId = userId.lastUpdated+"";
+                        console.log('profile userId -> ',payload.profile);
+                        let password = payload.profile.password; 
+                        return bcrypt.hash(password, saltRounds);        
+                    }).then((hashPassword) =>{
+                        payload.profile.password = hashPassword;
+                        console.log('profile hashPassword -> ',payload.profile);
+                        return MongoManager.insertDocument(mongoClient,constants.TOURNARIZERS_DB,
+                            constants.USER_PROFILES_COLLECTION,payload.profile);
+                    }).then(userCreated => {
+                        console.log('user profile created: ',userCreated);
+                        if(userCreated){
+                            delete userCreated["_id"];
+                            delete userCreated["password"];
+                        }
+                        
+                        resolve(userCreated);
+                    }).catch(err => {
+                        console.log('Error occured while createUser: ',err);
+                        reject(err);
+                    });
+                    
+                }
             }).catch(err => {
-                console.log('Error occured while createUser: ',err);
-                reject(err);
-            });
-            
+                console.log("Error while finding a document.");
+                return reject(err);
+            })
         });
     }
 

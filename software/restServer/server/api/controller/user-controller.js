@@ -20,6 +20,7 @@ class UserController{
         return UserService.createUser(mongoClient,payload).then(result => {
             res.status(200).json(new successResponse(result));
         }).catch(err => {
+            console.log('err.error >> ',err);
             res.status(500).json(new errorResponse(err));
         }); 
     }

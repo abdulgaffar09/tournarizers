@@ -12,6 +12,27 @@ class MongoManager {
         }
     }
 
+    static insertDocument(mongoClient, dbName, collectionName,document) {
+        return new Promise((resolve, reject) => {
+            try {
+                this.getMongoClient(mongoClient).then(mongoCli => {
+                    const collection = mongoCli.db(dbName).collection(collectionName);
+                    let result = collection.insertOne(document,(err,result) => {
+                        if(err){
+                            reject(err);
+                        }else{
+                            console.log('result => insert ',result);
+                            resolve(result.ops[0]);
+                        }
+                    })
+                });
+            } catch (e) {
+                console.log('Exception while insertDocument: ', e);
+                reject(e);
+            }
+        });
+    }
+
     static findAllDocuments(mongoClient, dbName, collectionName, query, limit, sort) {
         return new Promise((resolve, reject) => {
             try {

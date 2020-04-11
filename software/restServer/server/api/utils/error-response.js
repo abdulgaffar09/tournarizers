@@ -1,6 +1,7 @@
 var errorResponse = function errorResponse(message){
         this.status = 'failure';
-        this.errorMessage = new Error(message);
+        console.log(message);
+        this.errorMessage = message;
         
 }
 export default errorResponse;
