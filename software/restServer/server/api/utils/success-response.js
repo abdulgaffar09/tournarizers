@@ -1,7 +1,7 @@
-var successResponse = function successResponse(data,message){
+var successResponse = function successResponse(data,token){
 
         this.status = 'success';
         this.data = data;
-        this.message = message;
+        this.token = token;
 }
 export default successResponse;

@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import indexRouter from './server/routes/index';
 import usersRouter from './server/routes/users';
+import roomsRouter from './server/routes/rooms';
 import MongoClient from './server/api/db/mongo-singleton'
 
 var app = express();
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/rooms', roomsRouter);
 
 
 // catch 404 and forward to error handler

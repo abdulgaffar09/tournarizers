@@ -7,7 +7,7 @@ class JwtService {
         return jwt.sign({ emailId: profile.emailId, userId: profile.userId }, "tournaXYZ", { expiresIn: '24h' });
     }
 
-    static validateJwtToken(jwtToken, profile) {
+    static validateJwtToken(mongoCLient, jwtToken, profile) {
         return new Promise((resolve, reject) => {
             let jwtRes = {}
             jwt.verify(jwtToken, "tournaXYZ", (err, decoded) => {
@@ -19,7 +19,6 @@ class JwtService {
                     reject(jwtRes);
                 }
                 if (!profile || !Object.keys(profile).length && decoded.userId) {
-                    const mongoClient = MongoManager.getMongoClient();
                     UserService.getUser(mongoClient, decoded.userId).then(profile => {
                         profile = profile;
                         jwtRes = {
@@ -51,32 +50,42 @@ class JwtService {
         })
     }
 
-    static validateJwtTokenAndGetProfile(jwtToken) {
+    static validateJwtTokenAndGetProfile(mongoClient, jwtToken) {
         return new Promise((resolve, reject) => {
             let jwtRes = {}
             jwt.verify(jwtToken, "tournaXYZ", (err, decoded) => {
                 if (err) {
                     jwtRes = {
                         status: 'failure',
-                        message: "Invalid jwtToken"
+                        message: "Invalid jwtToken",
+                        name: "INVALID_TOKEN",
+                        code: 400
                     }
                     reject(jwtRes);
                 }
-                const mongoClient = MongoManager.getMongoClient();
                 UserService.getUser(mongoClient, decoded.userId).then(profile => {
-                    profile = profile;
-                    jwtRes = {
-                        status: 'success',
-                        jwtToken: this.createJwtToken(profile),
-                        profile: profile
+                    if (profile) {
+                        jwtRes = {
+                            status: 'success',
+                            jwtToken: this.createJwtToken(profile),
+                            profile: profile
+                        }
+                        resolve(jwtRes);
+                    } else {
+                        jwtRes = {
+                            status: 'failure',
+                            message: "Invalid jwtToken",
+                            name: "INVALID_TOKEN",
+                            code: 400
+                        }
+                        reject(jwtRes);
                     }
-                    resolve(jwtRes);
                 }).catch(err => {
                     jwtRes = {
                         status: 'failure',
                         error: err
                     }
-                    resolve(err)
+                    reject(jwtRes)
                 })
             });
         })

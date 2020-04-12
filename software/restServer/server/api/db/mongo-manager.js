@@ -38,7 +38,7 @@ class MongoManager {
             try {
                 this.getMongoClient(mongoClient).then(mongoCli => {
                     const collection = mongoCli.db(dbName).collection(collectionName);
-                    let result = collection.find({}).project({ _id: 0 });
+                    let result = collection.find(query).project({ _id: 0 });
 
                     if (limit) { result = collection.limit(limit); }
                     if (sort) { result = collection.sort(sort); }
