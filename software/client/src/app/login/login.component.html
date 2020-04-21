@@ -1,0 +1,42 @@
+<!-- <h1 mat-dialog-title>Sign In</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Enter your email</mat-label>
+      <input matInput value="{{data.emailId}}" type="email">
+      
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Enter your password</mat-label>
+      <input matInput [value]="data.password" type="password">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="login()" >Signin</button>
+  </div>
+   -->
+
+   <h1 mat-dialog-title>Signin</h1>
+<div mat-dialog-content>
+    <mat-error *ngIf="errorMessage">
+        <p>{{errorMessage}}</p>
+      </mat-error>
+      
+  <mat-form-field>
+    <mat-label>Email Id</mat-label>
+    <input matInput [(ngModel)]="data.emailId" type="email" required>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput [(ngModel)]="data.password" type="password" required>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button  mat-flat-button color="primary" (click)="login()">Signin</button>
+</div>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

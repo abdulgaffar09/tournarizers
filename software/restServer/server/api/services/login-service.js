@@ -20,7 +20,7 @@ class LoginService{
                     return bcrypt.compare(payload.password, userProfile.password).then(isPasswordValid => {
                         if(isPasswordValid){
                             let jwtToken = JwtService.createJwtToken(profile);
-                            let resp = {jwtToken: jwtToken};
+                            let resp = {jwtToken: jwtToken,userId:profile.userId};
                             resolve(resp);
                             }else{
                                 reject(new Error("Invalid emailId or password."));
@@ -30,7 +30,7 @@ class LoginService{
                     throw new Error("User profile not found.");   
                 }
             }).catch(err => {
-                console.log('Error occured while find the user: ',err);
+                console.log('Error occurred while find the user: ',err);
                 return reject(err);
             });
         });
