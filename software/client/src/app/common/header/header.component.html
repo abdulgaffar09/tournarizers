@@ -1,7 +1,10 @@
-<nav class="navbar navbar-expand-sm nav-bar-bg">
+<!-- <nav class="navbar navbar-expand-sm nav-bar-bg">
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!(userObj && userObj.userId)">
         <a class="nav-link" href="javascript:void(0)" (click) = "openDialog()">Sign In</a>
+      </li>
+      <li class="nav-item" *ngIf="userObj && userObj.userId">
+       <p>{{userObj.emailId}}</p> <a class="nav-link" href="javascript:void(0)" (click) = "logout()">Logout</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link 2</a>
@@ -10,4 +13,29 @@
         <a class="nav-link" href="#">Link 3</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <div class="col-header-1">
+        <h1>Tournaraisers</h1>
+        <span class="menu-spacer"></span>
+      </div>      
+      <div class="col-header-2">
+        <a mat-button href="javascript:void(0)" *ngIf="!(userObj && userObj.userId)" (click) = "openDialog()" > signIn </a>
+        
+
+        <!-- <a class="nav-link" *ngIf="userObj && userObj.userId" href="javascript:void(0)" (click) = "logout()"> -->
+          
+          <button mat-button  class="account-circle" *ngIf="userObj && userObj.userId" [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <p mat-menu-item>{{userObj.emailId}}</p>
+            <button mat-menu-item (click)="logout()">Logout</button>
+          </mat-menu>
+      </div>
+    </mat-toolbar-row>
+
+    <!-- <mat-toolbar-row>
+        <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+      </mat-toolbar-row> -->
+  </mat-toolbar>
+  

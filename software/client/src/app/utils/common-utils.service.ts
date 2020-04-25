@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry,map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
-
+import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,5 +44,25 @@ public getRequest(params: any, apiUrl): Observable<any>{
     return response;
   }));
 }
-  
+
+public validateUserAndGetProfile(): Observable<any>{
+  if(this.cookieService.check('jwtToken')){
+    return this.getRequest({},"validateJwtTokenAndGetProfile").pipe();
+  }else{
+    let obj = {
+      status: 'failure'
+    }
+    return of(obj);  
+  }  
+}
+
+public logout(){
+  if(this.cookieService.check('jwtToken')){
+    this.cookieService.delete('jwtToken');
+    return true;
+  }
+  return false;
+}
+
+
 }

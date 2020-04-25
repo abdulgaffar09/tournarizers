@@ -7,7 +7,7 @@ export default class RoomController {
     static createRoom(req, res) {
         const mongoClient = req.app.get('mongoClient');
         let payload = req.body;
-        const jwt = req.headers['access-token'];
+        const jwt = req.headers['x-access-token'];
         return RoomService.createRoom(mongoClient, payload, jwt).then(result => {
             res.status(200).json(new successResponse(result.data, result.token));
         }).catch(err => {
@@ -18,7 +18,7 @@ export default class RoomController {
     static updateRoom(req, res) {
         const mongoClient = req.app.get('mongoClient');
         const payload = req.body;
-        const jwt = req.headers['access-token'];
+        const jwt = req.headers['x-access-token'];
         return RoomService.updateRoom(mongoClient, payload, jwt).then(result => {
             res.status(200).json(new successResponse(result));
         }).catch(err => {
@@ -29,7 +29,7 @@ export default class RoomController {
     static getRoomInfo(req, res) {
         const mongoClient = req.app.get('mongoClient');
         let id = req.params.id;
-        const jwt = req.headers['access-token'];
+        const jwt = req.headers['x-access-token'];
         return RoomService.getRoomInfo(mongoClient, id, jwt).then(result => {
             res.status(200).json(new successResponse(result));
         }).catch(err => {
@@ -39,7 +39,7 @@ export default class RoomController {
 
     static getAllRooms(req, res) {
         const mongoClient = req.app.get('mongoClient');
-        const jwt = req.headers['access-token'];
+        const jwt = req.headers['x-access-token'];
         return RoomService.getAllRooms(mongoClient, jwt).then(result => {
             res.status(200).json(new successResponse(result));
         }).catch(err => {

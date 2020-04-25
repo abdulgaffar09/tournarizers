@@ -10,4 +10,8 @@ export class DashboardService {
   public getUser(id){
     return this.commonService.getRequest({},"users/"+id+"/get");
   }
+
+  public fetchRooms(){
+    return this.commonService.getRequest({},'rooms/get');
+  }
 }

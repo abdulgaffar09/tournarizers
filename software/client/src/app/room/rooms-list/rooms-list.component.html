@@ -1,1 +1,6 @@
-<p>rooms-list works!</p>
+<div *ngIf="roomsList && roomsList.length>0" >
+    <div class="room-card" *ngFor='let eachRoom of roomsList'>
+        <app-card  [cardObj]="eachRoom"></app-card>    
+    </div>
+    
+</div>

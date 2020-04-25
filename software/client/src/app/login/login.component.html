@@ -3,9 +3,9 @@
     <mat-form-field>
         <mat-label>Enter your email</mat-label>
       <input matInput value="{{data.emailId}}" type="email">
-      
+
     </mat-form-field>
-    
+
     <mat-form-field>
         <mat-label>Enter your password</mat-label>
       <input matInput [value]="data.password" type="password">
@@ -19,14 +19,14 @@
    <h1 mat-dialog-title>Signin</h1>
 <div mat-dialog-content>
     <mat-error *ngIf="errorMessage">
-        <p>{{errorMessage}}</p>
+        <p>{{errorMessage}}</p>000
       </mat-error>
-      
+
   <mat-form-field>
     <mat-label>Email Id</mat-label>
     <input matInput [(ngModel)]="data.emailId" type="email" required>
   </mat-form-field>
-  
+
   <mat-form-field>
     <mat-label>Password</mat-label>
     <input matInput [(ngModel)]="data.password" type="password" required>

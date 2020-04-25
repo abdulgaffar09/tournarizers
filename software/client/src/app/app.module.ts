@@ -16,6 +16,8 @@ import { RoomsListComponent } from './room/rooms-list/rooms-list.component';
 import { RoomCreateComponent } from './room/room-create/room-create.component';
 import { UserHeroComponent } from './user-hero/user-hero.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CardComponent } from './common/card/card.component';
+import { ListCardComponent } from './common/list-card/list-card.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     RoomsListComponent,
     RoomCreateComponent,
     UserHeroComponent,
-    DashboardComponent
+    DashboardComponent,
+    CardComponent,
+    ListCardComponent
   ],
   imports: [
     BrowserModule,

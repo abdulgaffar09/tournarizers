@@ -10,10 +10,12 @@
 
 import express from 'express';
 import LoginController from '../api/controller/login-controller';
+import JwtController from '../api/controller/jwt-controller';
 const router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-router.post('/login',LoginController.login)
+router.post('/login',LoginController.login);
+router.get('/validateJwtTokenAndGetProfile', JwtController.validateJwtTokenAndGetProfile);
 export default router;

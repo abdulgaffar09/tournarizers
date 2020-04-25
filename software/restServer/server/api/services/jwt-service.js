@@ -55,6 +55,7 @@ class JwtService {
             let jwtRes = {}
             jwt.verify(jwtToken, "tournaXYZ", (err, decoded) => {
                 if (err) {
+                    console.log('err verify validateJwtTokenAndGetProfile',err);
                     jwtRes = {
                         status: 'failure',
                         message: "Invalid jwtToken",

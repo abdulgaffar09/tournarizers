@@ -1,0 +1,38 @@
+<!-- roomName: "DUO SUVIVAL 1"
+gameName: "PUBG_MOBILE"
+gameTime: "April 12, 2020, 11:30 am"
+expiryTime: "April 12, 2020, 11:30 am"
+status: "active"
+gameType: "DUO"
+totalTeams: 30
+entryFee: 200
+gameMode: "SURVIVAL"
+reward: {1: 1500, 2: 1000, 3: 700, 4: 500, 5: 300}
+roomId: "100006"
+userId: "100022" -->
+
+<mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{cardObj.roomName}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{cardObj.gameName}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>
+        gameTime: {{cardObj.gameTime}}
+        expiryTime: {{cardObj.expiryTime}}
+        status: {{cardObj.status}}
+        gameType: {{cardObj.gameType}}
+        totalTeams: {{cardObj.totalTeams}}
+        entryFee: {{cardObj.entryFee}}
+        gameMode: {{cardObj.gameMode}}
+        <!-- reward: {1: 1500, 2: 1000, 3: 700, 4: 500, 5: 300} -->
+        roomId: {{cardObj.roomId}}
+      </p>
+      
+    </mat-expansion-panel>
+   
+  </mat-accordion>

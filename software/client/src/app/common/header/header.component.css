@@ -1,7 +1,27 @@
-.nav-bar-bg{
+.nav-bar-bg, .mat-toolbar{
     background-color: #393E44 !important;
     /* border-radius: em !important; */
     /* border-bottom-left-radius: 10% !important; */
     text-decoration-color: darkblue !important;
 
 }
+
+.col-header-1{
+    width: 80%;
+}
+
+.col-header-2{
+    width: 20%;
+}
+
+.col-header-2 .mat-button{
+    float: right;
+}
+.col-header-2 .account-circle .material-icons {
+    font-size: 45px !important;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }

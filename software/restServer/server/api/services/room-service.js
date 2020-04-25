@@ -34,7 +34,7 @@ export default class RoomService {
                                     createdRoom = roomCreated;
                                     return UserService.updateUser(mongoClient, payload);
                                 }).then(profile => {
-                                    resolve({ data: createdRoom, token: resp.jwtToken });
+                                    resolve({ data: createdRoom, jwtToken: resp.jwtToken });
                                 }).catch(err => {
                                     reject(new Error('Error occured while creating room'))
                                 });
@@ -110,7 +110,7 @@ export default class RoomService {
                             if (result) {
                                 MongoManager.findOneAndUpdate(mongoClient, constants.TOURNARIZERS_DB, constants.ROOMS_COLLECTION, query, setDoc, true)
                                     .then(updatedRoom => {
-                                        resolve({ data: updatedRoom, then: resp.jwtToken });
+                                        resolve({ data: updatedRoom, jwtToken: resp.jwtToken });
                                     }).catch(err => {
                                         console.log('Error occured while updating room: ', err);
                                         reject(err);
@@ -148,12 +148,13 @@ export default class RoomService {
                     query.userId = resp.profile.userId;
                     MongoManager.findAllDocuments(mongoClient, constants.TOURNARIZERS_DB, constants.ROOMS_COLLECTION, query)
                         .then(roomsList => {
-                            resolve({ data: roomsList, token: resp.jwtToken });
+                            resolve({ data: roomsList, jwtToken: resp.jwtToken });
                         }).catch(err => {
                             console.log('Error occured while getAllRooms: ', err);
                             reject(err);
                         });
                 } else {
+                    console.log(">>>>>>>>>", resp);
                     let error = {};
                     error.name = 'INVALID_TOKEN';
                     error.code = 400;
