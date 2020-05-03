@@ -5,6 +5,7 @@
     </div>
     <div class="col-das-2">
         <h2 mat-header>Rooms created by you</h2>
+        <button (click)="openCreateRoomDialog()" >Create Room</button>
         <app-rooms-list [(roomsList)]="roomsList"></app-rooms-list>
     </div>
     <div class="col-das-3">

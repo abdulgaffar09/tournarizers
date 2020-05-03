@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 
@@ -18,6 +18,7 @@ import { UserHeroComponent } from './user-hero/user-hero.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CardComponent } from './common/card/card.component';
 import { ListCardComponent } from './common/list-card/list-card.component';
+import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { ListCardComponent } from './common/list-card/list-card.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    DateTimePickerModule,
     MaterialModule,
     HttpClientModule
   ],

@@ -1,1 +1,91 @@
-<p>room-create works!</p>
+<h1 mat-dialog-title>Create Room</h1>
+<div mat-dialog-content>
+    <form [formGroup]="roomForm" class="login-container" (ngSubmit)="createRoom()">
+        <mat-error *ngIf="errorMessage">
+            <p>{{errorMessage}}</p>
+        </mat-error>
+
+        <mat-form-field class="room-name" appearance="outline">
+            <mat-label>Room Name</mat-label>
+            <input matInput formControlName="roomName" required>
+            <mat-error *ngIf="form.roomName.invalid">Room Name should not be empty</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Game Name</mat-label>
+            <mat-select formControlName="gameName">
+                <mat-option value="">Select an option</mat-option>
+                <mat-option *ngFor="let game of games" [value]="game">
+                    {{game}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.gameName.invalid">Game Name should not be empty</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Game Type</mat-label>
+            <mat-select formControlName="gameType">
+                <mat-option value="">Select an option</mat-option>
+                <mat-option *ngFor="let gameType of gameTypes" [value]="gameType">
+                    {{gameType}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.gameType.invalid">Game Type is should not be empty</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Game Mode</mat-label>
+            <mat-select formControlName="gameMode">
+                <mat-option value="">Select an option</mat-option>
+                <mat-option *ngFor="let gameMode of gameModes" [value]="gameMode">
+                    {{gameMode}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.gameMode.invalid">Game Mode is required</mat-error>
+        </mat-form-field>
+
+        <div class="form-group">
+            <ejs-datetimepicker #ejDateTimePicker formControlName="gameTime" name="gameTime" [min]="minDate"
+                placeholder='select data and time' floatLabelType='Auto'>
+            </ejs-datetimepicker>
+            <div *ngIf="form.gameTime.invalid && (form.gameTime.dirty||form.gameTime.touched)" class="mat-error error">
+                Enter Date and time in "MM/dd/yyyy hh:mm a" format.
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="primary" (click)="createRoom()">Create Room</button>
+</div>
+
+
+<!-- <form novalidate>
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Hobbies</label>
+        <select class="form-control">
+            <option value="">Select an option</option>
+            <option *ngFor="let hoby of Hobbies" [value]="hoby">
+                {{hoby}}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-danger btn-block">Submit</button>
+    </div>
+</form> -->

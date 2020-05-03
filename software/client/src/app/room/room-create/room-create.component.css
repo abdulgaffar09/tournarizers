@@ -1,0 +1,18 @@
+.mat-form-field {
+    width:50%;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.room-name{
+    width:100%;
+}
+
+.error{
+    font-size: 75%;
+}
+
+.mat-dialog-actions {
+    justify-content: center;
+
+}

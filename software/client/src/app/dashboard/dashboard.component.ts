@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { RoomCreateComponent } from '../room/room-create/room-create.component';
 import { DashboardService } from './dashboard.service';
 import { CommonUtilsService } from '../utils/common-utils.service';
 
@@ -14,7 +16,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   userId: string;
   roomsList: any;
   constructor(private route: ActivatedRoute,
-    private router: Router, private dashboardService: DashboardService, private commonService: CommonUtilsService) { }
+    private router: Router, private dashboardService: DashboardService, private commonService: CommonUtilsService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     //one way to fetch id from url params
@@ -96,4 +98,10 @@ export class DashboardComponent implements OnInit, OnChanges {
     });
   }
 
+  openCreateRoomDialog(): void {
+    const dialogRef = this.dialog.open(RoomCreateComponent, {
+      width: '500px',
+      data: { userId: this.userId }
+    });
+  }
 }
